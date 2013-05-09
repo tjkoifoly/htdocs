@@ -9,7 +9,7 @@
         <h1>
             Welcome to Gift-love Server !
         </h1>
-        <form action="register.php" method="post"
+        <form action="find_friends.php" method="post"
               enctype="multipart/form-data">
             <label for="file">Filename:</label>
             <input type="file" name="avatar" id="file"><br/>
@@ -20,6 +20,17 @@
             <input type="text" name="accName" value="foly"><br/>
             <label for="file">Password:</label>
             <input type="text" name="accPassword" value="tjkoi"><br/>
+            <label for="file">ID:</label>
+            <input type="text" name="sourceID" value="1"><br/>
+            <br/><br/><br/><br/><br/>
+            
+            <label for="file">Finder ID:</label>
+            <input type="text" name="finderID" value="1"><br/>
+            <label for="file">username:</label>
+            <input type="text" name="username" value=""><br/>
+            <label for="file">email:</label>
+            <input type="text" name="email" value=""><br/>
+            
         </form>
     </center>
 
