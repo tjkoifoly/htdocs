@@ -4,11 +4,11 @@ header('Content-Type: application/json');
 include 'connect_database.php';
 
 $sourceID = $_POST['sourceID'];
+$friendID = $_POST['friendID'];
 
-function get_friend_list($sID) {
+function list_days($sID, $fID) {
     if (connect_databse()) {
-        $query = "SELECT account.*, relationship.rsStatus From relationship LEFT JOIN account ON rsFriendID = accID WHERE accID IN(SELECT DISTINCT rsFriendID FROM account JOIN relationship ON account.accID = relationship.rsSourceID AND accID = $sID)  LIMIT 100;
-";
+        $query = "SELECT * FROM special_days WHERE sdRelationship = (SELECT rsID FROM relationship WHERE rsSourceID = '$sID' AND rsFriendID='$fID');";
         $result = mysql_query($query) or die(mysql_error());
         $num = mysql_num_rows($result);
 
@@ -25,6 +25,6 @@ function get_friend_list($sID) {
     }
 }
 
-echo get_friend_list($sourceID);
+echo list_days($sourceID, $friendID);
 
 ?>

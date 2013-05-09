@@ -9,7 +9,7 @@
         <h1>
             Welcome to Gift-love Server !
         </h1>
-        <form action="find_friends.php" method="post"
+        <form action="add_special_day.php" method="post"
               enctype="multipart/form-data">
             <label for="file">Filename:</label>
             <input type="file" name="avatar" id="file"><br/>
@@ -22,7 +22,7 @@
             <input type="text" name="accPassword" value="tjkoi"><br/>
             <label for="file">ID:</label>
             <input type="text" name="sourceID" value="1"><br/>
-            <br/><br/><br/><br/><br/>
+            <br/><hr/><br/>
             
             <label for="file">Finder ID:</label>
             <input type="text" name="finderID" value="1"><br/>
@@ -30,6 +30,20 @@
             <input type="text" name="username" value=""><br/>
             <label for="file">email:</label>
             <input type="text" name="email" value=""><br/>
+            
+            <br/><hr/><br/>
+            <label for="file">Finder ID:</label>
+            <input type="text" name="friendID" value="4"><br/>
+            <label for="file">Source ID:</label>
+            <input type="text" name="sourceID" value="1"><br/>
+            <label for="file">usage:</label>
+            <input type="text" name="usage" value="add_day"><br/>
+            <label for="file">title:</label>
+            <input type="text" name="sdTitle" value="CLGT"><br/>
+            <label for="file">usage:</label>
+            <input type="text" name="sdDay" value="1999-9-01"><br/>
+            
+            
             
         </form>
     </center>
