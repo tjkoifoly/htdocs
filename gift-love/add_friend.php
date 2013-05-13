@@ -4,7 +4,7 @@ header('Content-Type: application/json');
 include 'connect_database.php';
 
 $sourceID = $_POST['sourceID'];
-    $friendID = $_POST['friendID'];
+$friendID = $_POST['friendID'];
     
 
 function check_specialdays($sID, $fID) {
