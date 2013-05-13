@@ -31,14 +31,15 @@ function get_message_box($sID, $rID) {
     }
 }
 
-function post_message($sID, $rID, $msg) {
+function post_message($sID, $rID, $msg, $type) {
 
     $result = array();
     if (connect_databse()) {
         
         $mBox = get_message_box($sID, $rID);
 
-        $query = "INSERT INTO message VALUES (NULL, '$msg', '0', '$mBox', NOW());";
+        $query = "INSERT INTO message VALUES (NULL, '$msg', '0', '$mBox', NOW(),$type);";
+        //echo "$query<br/>";
 
         $result_sign_up = mysql_query($query) or die(mysql_errno());
         if ($result_sign_up) {
@@ -52,5 +53,5 @@ function post_message($sID, $rID, $msg) {
     }
 }
 
-echo post_message($senderID, $recieverID, $_POST['message']);
+echo post_message($senderID, $recieverID, $_POST['message'], $_POST['msType']);
 ?>
