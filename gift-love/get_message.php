@@ -5,6 +5,7 @@ include 'connect_database.php';
 
 $senderID = $_POST['senderID'];
 $recieverID = $_POST['recieverID'];
+$limit = isset($_POST['limit']) ? $_POST['limit'] : 20;
 
 function get_message_box($sID, $rID) {
     if (connect_databse()) {
@@ -31,14 +32,24 @@ function get_message_box($sID, $rID) {
     }
 }
 
-function get_message($sID, $rID) {
+function get_message($sID, $rID, $lim) {
 
+    
     if (connect_databse()) {
 
         $mBoxSender = get_message_box($sID, $rID);
         $msBoxReciver = get_message_box($rID, $sID);
 
-        $query = "SELECT message.*, messages_box.mbSenderID FROM message JOIN messages_box ON msBoxID=mbID WHERE msBoxID='$mBoxSender' OR msBoxID='$msBoxReciver' GROUP BY msDateSent ORDER BY msDateSent ASC;";
+        $sql = mysql_query("SELECT * FROM message JOIN messages_box ON msBoxID=mbID WHERE msBoxID='$mBoxSender' OR msBoxID='$msBoxReciver'");
+        $total = mysql_num_rows($sql);
+        $start = 0;
+        $end = $lim;
+        if($total > $end)
+        {
+            $start = $total - $lim;
+        }
+
+        $query = "SELECT message.*, messages_box.mbSenderID FROM message JOIN messages_box ON msBoxID=mbID WHERE msBoxID='$mBoxSender' OR msBoxID='$msBoxReciver' GROUP BY msDateSent ORDER BY msDateSent ASC LIMIT $start, $end;";
 
         $result = mysql_query($query) or die(mysql_error());
         $num = mysql_num_rows($result);
@@ -56,5 +67,5 @@ function get_message($sID, $rID) {
     }
 }
 
-echo get_message($senderID, $recieverID);
+echo get_message($senderID, $recieverID, $limit);
 ?>
