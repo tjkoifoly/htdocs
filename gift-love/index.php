@@ -9,7 +9,7 @@
         <h1>
             Welcome to Gift-love Server !
         </h1>
-        <form action="list_groups.php" method="post"
+        <form action="leave_group.php" method="post"
               enctype="multipart/form-data">
             <label for="file">Filename:</label>
             <input type="file" name="avatar" id="file"><br/>
@@ -32,14 +32,14 @@
             <input type="text" name="email" value=""><br/>
             
             <br/><hr/><br/>
-            <label for="file">creator ID:</label>
-            <input type="text" name="creatorID" value="2"><br/>
-            <label for="file">Member ID:</label>
-            <input type="text" name="memberID" value="13"><br/>
+            <label for="file">user ID:</label>
+            <input type="text" name="userID" value="1"><br/>
+            <label for="file">group ID:</label>
+            <input type="text" name="groupID" value="1"><br/>
             <label for="file">message:</label>
-            <input type="text" name="message" value="CLGT"><br/>
+            <input type="text" name="mgMessage" value="Sent from netbean"><br/>
             <label for="file">title:</label>
-            <input type="text" name="msType" value="0"><br/>
+            <input type="text" name="mgType" value="0"><br/>
             <label for="file">GroupID:</label>
             <input type="text" name="gmID" value="1"><br/>
             
