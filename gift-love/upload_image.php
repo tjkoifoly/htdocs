@@ -86,5 +86,6 @@ $url_image = upload_image($dirAvatar);
 $respone_object = array();
 $respone_object[] = $url_image;
 header('Content-Type: application/json');
+
 echo json_encode($respone_object);
 ?>
