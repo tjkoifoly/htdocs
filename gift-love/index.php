@@ -9,7 +9,7 @@
         <h1>
             Welcome to Gift-love Server !
         </h1>
-        <form action="get_gift.php" method="post"
+        <form action="get_friend_requests.php" method="post"
               enctype="multipart/form-data">
             <label for="file">Filename:</label>
             <input type="file" name="avatar" id="file"><br/>

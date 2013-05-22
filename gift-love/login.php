@@ -2,10 +2,10 @@
 
 include 'connect_database.php';
 
-if (isset($_GET['username'])) {
-    if (isset($_GET['password'])) {
+if (isset($_POST['username'])) {
+    if (isset($_POST['password'])) {
         if (connect_databse()) {
-            $query = "SELECT * FROM account WHERE accName='{$_GET['username']}' AND accPassword = '{$_GET['password']}'";
+            $query = "SELECT * FROM account WHERE accName='{$_POST['username']}' AND accPassword = '{$_POST['password']}'";
             $result = mysql_query($query) or die(mysql_error());
             $num = mysql_num_rows($result);
 
