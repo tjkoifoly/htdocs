@@ -31,24 +31,22 @@ function get_message_box($sID, $rID) {
     }
 }
 
-function read_message_inbox($bID)
-{
-    $query = "UPDATE message SET message.msMarkRead=1 WHERE msBoxID=$bID AND message.msMarkRead=0;";
-    $result_query = mysql_query($query) or die(mysql_errno());
-    $row = array();
-    if($result_query)
-    {
-        $row[] = "Update success";
-    }else
-    {
-        $row[] = "Update failed";
+function read_message_inbox($bID) {
+    if (connect_databse()) {
+        $query = "UPDATE message SET message.msMarkRead=1 WHERE msBoxID=$bID AND message.msMarkRead=0;";
+        $result_query = mysql_query($query) or die(mysql_errno());
+        $row = array();
+        if ($result_query) {
+            $row[] = "Update success";
+        } else {
+            $row[] = "Update failed";
+        }
+
+        mysql_close();
+        return json_encode($row);
     }
-    
-    mysql_close();
-    return json_encode($row);
 }
 
 $messageBox = get_message_box($senderID, $recieverID);
 echo read_message_inbox($messageBox);
-
 ?>

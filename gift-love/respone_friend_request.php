@@ -8,6 +8,28 @@ $friendID = $_POST['friendID'];
 $relationshipID = $_POST['rsID'];
 $rsStatus = $_POST['rsStatus'];
 
+function get_relationship($sID, $fID) {
+    if (connect_databse()) {
+        $query = "SELECT rsID FROM relationship WHERE rsSourceID = $sID AND rsFriendID=$fID;";
+        $result = mysql_query($query) or die(mysql_error());
+        $num = mysql_num_rows($result);
+
+        if ($num < 1) {
+            return 0;
+        }else
+        {
+            $row = array();
+        while ($row1 = mysql_fetch_assoc($result)) {
+            $row [] = $row1;
+        }
+        return $row[0]['mbID'];
+        mysql_close();
+        }
+        
+    }
+}
+
+
 function respone_request($sID, $fID, $rID, $respone)
 {
     $result = array();
@@ -19,14 +41,23 @@ function respone_request($sID, $fID, $rID, $respone)
             $result1 = mysql_query($query1) or die(mysql_errno()); 
             if ($result1) {
                 $result[] = @"Update Success";
-                $query2 ="INSERT INTO relationship VALUES (NULL, $sID, $fID, 2);";
+                
+                $rel = get_relationship($fID, $sID);
+                if($rel == 0 )
+                {
+                    $query2 ="INSERT INTO relationship VALUES (NULL, $sID, $fID, 2);";
+                    
+                }else
+                {
+                    $query2 = "UPDATE relationship SET rsStatus=$respone WHERE rsID=$rel;";
+                }
                 $result2 = mysql_query($query2) or die(mysql_errno()); 
                 if($result2)
                 {
-                    $result[] = @"Insert Success";
+                    $result[] = @"ADD Success";
                 }else
                 {
-                    $result[] = @"Insert Failed";
+                    $result[] = @"ADD Failed";
                 }
                 
             } else {
