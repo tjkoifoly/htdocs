@@ -13,10 +13,11 @@ function get_friend_request($uID)
         $result_qerry = mysql_query($query) or die(mysql_error());
         $num = mysql_num_rows($result_qerry);
 
+        $row = array();
         if ($num < 1) {
-            return NIL;
+            return $row;
         } else {
-            $row = array();
+            
             while ($row1 = mysql_fetch_assoc($result_qerry)) {
                 $row[] = $row1;
             }

@@ -68,4 +68,5 @@ function get_message($sID, $rID, $lim) {
 }
 
 echo get_message($senderID, $recieverID, $limit);
+
 ?>
