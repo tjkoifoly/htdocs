@@ -17,7 +17,7 @@ function get_messages_group($gID, $lim) {
             $start = $total - $lim;
         }
 
-        $query = "SELECT *FROM message_group WHERE mgGroup=$gID GROUP BY mgDateSent ORDER BY mgDateSent ASC LIMIT $start, $end;";
+        $query = "SELECT *FROM message_group WHERE mgGroup=$gID AND mgDateSent >= DATE_SUB(NOW(), INTERVAL 1 WEEK) GROUP BY mgDateSent ORDER BY mgDateSent ASC LIMIT $start, $end;";
 
         $result = mysql_query($query) or die(mysql_error());
         $num = mysql_num_rows($result);

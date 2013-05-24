@@ -34,7 +34,6 @@ function get_message_box($sID, $rID) {
 
 function get_message($sID, $rID, $lim) {
 
-    
     if (connect_databse()) {
 
         $mBoxSender = get_message_box($sID, $rID);
@@ -49,7 +48,7 @@ function get_message($sID, $rID, $lim) {
             $start = $total - $lim;
         }
 
-        $query = "SELECT message.*, messages_box.mbSenderID FROM message JOIN messages_box ON msBoxID=mbID WHERE msBoxID='$mBoxSender' OR msBoxID='$msBoxReciver' GROUP BY msDateSent ORDER BY msDateSent ASC LIMIT $start, $end;";
+        $query = "SELECT message.*, messages_box.mbSenderID FROM message JOIN messages_box ON msBoxID=mbID WHERE msBoxID='$mBoxSender' OR msBoxID='$msBoxReciver' AND msDateSent >= DATE_SUB(NOW(), INTERVAL 1 WEEK) GROUP BY msDateSent ORDER BY msDateSent ASC LIMIT $start, $end;";
 
         $result = mysql_query($query) or die(mysql_error());
         $num = mysql_num_rows($result);
