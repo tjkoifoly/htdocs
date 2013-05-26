@@ -16,7 +16,7 @@ function post_message_group($sID, $gID, $msg, $type) {
 
         $result_post = mysql_query($query) or die(mysql_errno());
         if ($result_post) {
-            $result[] = @"Success";
+            $result[] = mysql_insert_id();
         } else {
             $result[] = @"Failed";
         }

@@ -12,6 +12,11 @@ $dir_page = $dir_document_root . $dirname;
 chmod($dir_page, 777);
 
 $dirAvatar = "avatars/";
+if($_FILES["avatar"]["name"] == "photo.png")
+{
+    $dirAvatar="photos/";
+}
+
 if (!file_exists($dirAvatar) && !is_dir($dirAvatar)) {
     //echo "Pass here - create directory<br/>";
     mkdir($dirAvatar, 0777);
@@ -31,7 +36,7 @@ function upload_image($dir_upload) {
             || ($_FILES["avatar"]["type"] == "image/pjpeg")
             || ($_FILES["avatar"]["type"] == "image/x-png")
             || ($_FILES["avatar"]["type"] == "image/png"))
-            && ($_FILES["avatar"]["size"] < 2000000)
+            && ($_FILES["avatar"]["size"] < 10000000)
             && in_array($extension, $allowedExts)) {
         //echo "Pass here ---> Image Checked !<br/>";
 

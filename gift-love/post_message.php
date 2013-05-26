@@ -43,7 +43,7 @@ function post_message($sID, $rID, $msg, $type) {
 
         $result_sign_up = mysql_query($query) or die(mysql_errno());
         if ($result_sign_up) {
-            $result[] = @"Success";
+            $result[] = mysql_insert_id();
         } else {
             $result[] = @"Failed";
         }
