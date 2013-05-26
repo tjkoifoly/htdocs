@@ -9,7 +9,7 @@
         <h1>
             Welcome to Gift-love Server !
         </h1>
-        <form action="get_notifications.php" method="post"
+        <form action="respone_friend_request.php" method="post"
               enctype="multipart/form-data">
             <label for="file">Filename:</label>
             <input type="file" name="avatar" id="file"><br/>
@@ -33,11 +33,11 @@
             
             <br/><hr/><br/>
             <label for="file">user ID:</label>
-            <input type="text" name="userID" value="1"><br/>
+            <input type="text" name="sourceID" value="1"><br/>
             <label for="file">group ID:</label>
-            <input type="text" name="groupID" value="1"><br/>
+            <input type="text" name="friendID" value="3"><br/>
             <label for="file">message:</label>
-            <input type="text" name="mgMessage" value="Sent from netbean"><br/>
+            <input type="text" name="rsStatus" value="2"><br/>
             <label for="file">title:</label>
             <input type="text" name="mgType" value="0"><br/>
             <label for="file">GroupID:</label>

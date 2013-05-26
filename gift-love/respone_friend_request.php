@@ -12,8 +12,8 @@ function get_relationship($sID, $fID) {
     if (connect_databse()) {
         $query = "SELECT rsID FROM relationship WHERE rsSourceID = $sID AND rsFriendID=$fID;";
         $result = mysql_query($query) or die(mysql_error());
+        
         $num = mysql_num_rows($result);
-
         if ($num < 1) {
             return 0;
         }else
@@ -22,7 +22,7 @@ function get_relationship($sID, $fID) {
         while ($row1 = mysql_fetch_assoc($result)) {
             $row [] = $row1;
         }
-        return $row[0]['mbID'];
+        return $row[0]['rsID'];
         mysql_close();
         }
         
@@ -32,6 +32,11 @@ function get_relationship($sID, $fID) {
 
 function respone_request($sID, $fID, $rID, $respone)
 {
+    if($rID==0)
+    {
+        $rID = get_relationship($fID, $sID);
+    }
+    
     $result = array();
     if(connect_databse())
     {
@@ -39,10 +44,10 @@ function respone_request($sID, $fID, $rID, $respone)
         {
             $query1 = "UPDATE relationship SET rsStatus=$respone WHERE rsID=$rID;";
             $result1 = mysql_query($query1) or die(mysql_errno()); 
+
             if ($result1) {
-                $result[] = @"Update Success";
-                
-                $rel = get_relationship($fID, $sID);
+                $result[] = @"Update Success";                
+                $rel = get_relationship($sID, $fID);
                 if($rel == 0 )
                 {
                     $query2 ="INSERT INTO relationship VALUES (NULL, $sID, $fID, 2);";
