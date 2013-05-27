@@ -9,7 +9,7 @@
         <h1>
             Welcome to Gift-love Server !
         </h1>
-        <form action="upload_image.php" method="post"
+        <form action="get_new_messages.php" method="post"
               enctype="multipart/form-data">
             <label for="file">Filename:</label>
             <input type="file" name="avatar" id="file"><br/>
@@ -33,9 +33,9 @@
             
             <br/><hr/><br/>
             <label for="file">user ID:</label>
-            <input type="text" name="sourceID" value="1"><br/>
+            <input type="text" name="senderID" value="1"><br/>
             <label for="file">group ID:</label>
-            <input type="text" name="friendID" value="3"><br/>
+            <input type="text" name="recieverID" value="3"><br/>
             <label for="file">message:</label>
             <input type="text" name="rsStatus" value="2"><br/>
             <label for="file">title:</label>

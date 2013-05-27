@@ -4,20 +4,23 @@ header('Content-Type: application/json');
 include 'connect_database.php';
 
 $groupID = $_POST['groupID'];
-$limit = isset($_POST['limit']) ? $_POST['limit'] : 50;
+$limit = $_POST['limit'];
 
 function get_messages_group($gID, $lim) {
     if (connect_databse()) {
-        $sql = mysql_query("SELECT * FROM message_group WHERE mgGroup=$gID");
-        $total = mysql_num_rows($sql);
-        $start = 0;
-        $end = $lim;
-        if($total > $end)
-        {
-            $start = $total - $lim;
-        }
 
-        $query = "SELECT *FROM message_group WHERE mgGroup=$gID AND mgDateSent >= DATE_SUB(NOW(), INTERVAL 1 WEEK) GROUP BY mgDateSent ORDER BY mgDateSent ASC LIMIT $start, $end;";
+        if($lim == "")
+        {
+            $query = "SELECT *FROM message_group WHERE mgGroup=$gID 
+            AND mgDateSent >= DATE_SUB(NOW(), INTERVAL 1 WEEK) 
+            GROUP BY mgDateSent ORDER BY mgDateSent ASC;";
+        }else
+        {
+            $query = "SELECT *FROM message_group WHERE mgGroup=$gID 
+            AND mgDateSent > '$lim' 
+            GROUP BY mgDateSent ORDER BY mgDateSent ASC;";
+        }
+        
 
         $result = mysql_query($query) or die(mysql_error());
         $num = mysql_num_rows($result);

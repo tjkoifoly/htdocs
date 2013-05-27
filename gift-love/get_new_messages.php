@@ -5,7 +5,6 @@ include 'connect_database.php';
 
 $senderID = $_POST['senderID'];
 $recieverID = $_POST['recieverID'];
-$limit = isset($_POST['limit']) ? $_POST['limit'] : 100;
 
 function get_message_box($sID, $rID) {
     if (connect_databse()) {
@@ -32,42 +31,45 @@ function get_message_box($sID, $rID) {
     }
 }
 
-function get_message($sID, $rID, $lim) {
-
-    if (connect_databse()) {
-
-        $mBoxSender = get_message_box($sID, $rID);
+function get_new_messages($sID, $rID)
+{
+    if(connect_databse())
+    {
         $msBoxReciver = get_message_box($rID, $sID);
-
-//        $sql = mysql_query("SELECT * FROM message JOIN messages_box ON msBoxID=mbID WHERE msBoxID='$mBoxSender' OR msBoxID='$msBoxReciver'");
-//        $total = mysql_num_rows($sql);
-//        $start = 0;
-//        $end = $lim;
-//        if($total > $end)
-//        {
-//            $start = $total - $lim;
-//        }
-
-        $query = "SELECT message.*, messages_box.mbSenderID FROM message JOIN messages_box ON msBoxID=mbID 
-            WHERE msBoxID='$mBoxSender' OR (msBoxID='$msBoxReciver' AND msMarkRead=1) 
-                AND msDateSent >= DATE_SUB(NOW(), INTERVAL 1 WEEK) GROUP BY msDateSent ORDER BY msDateSent ASC;";
+        
+         $query = "SELECT message.*, messages_box.mbSenderID FROM message JOIN messages_box ON msBoxID=mbID 
+             WHERE  msBoxID='$msBoxReciver' AND msMarkRead=0
+             AND msDateSent >= DATE_SUB(NOW(), INTERVAL 1 WEEK) GROUP BY msDateSent ORDER BY msDateSent ASC";
 
         $result = mysql_query($query) or die(mysql_error());
         $num = mysql_num_rows($result);
 
+        $row = array();
         if ($num < 1) {
-            return NIL;
+                //$row[]="";
         } else {
-            $row = array();
             while ($row1 = mysql_fetch_assoc($result)) {
                 $row[] = $row1;
-            }
-            return json_encode($row);
+            }   
         }
+        
+        $query_update = "UPDATE message SET message.msMarkRead=1 WHERE msBoxID=$msBoxReciver AND message.msMarkRead=0;";
+        $result_update = mysql_query($query_update) or die(mysql_error());
+        
+        if($result_update)
+        {
+            return json_encode($row);
+        }else 
+        {
+            return NIL;
+        }
+        
+        
         mysql_close();
     }
+     
 }
 
-echo get_message($senderID, $recieverID, $limit);
+echo get_new_messages($senderID, $recieverID);
 
 ?>
