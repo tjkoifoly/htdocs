@@ -17,15 +17,17 @@ function check_account($param_name) {
     $result = mysql_query($query) or die(mysql_error());
     $num = mysql_num_rows($result);
 
+    $row = array();
     if ($num < 1) {
-        return NIL;
+        
     } else {
-        $row = array();
+        
         while ($row1 = mysql_fetch_assoc($result)) {
             $row[] = $row1;
         }
-        return json_encode($row);
+        
     }
+    return json_encode($row);
     mysql_close();
 }
 

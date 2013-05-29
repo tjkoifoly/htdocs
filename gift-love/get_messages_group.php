@@ -20,8 +20,6 @@ function get_messages_group($gID, $lim) {
             AND mgDateSent > '$lim' 
             GROUP BY mgDateSent ORDER BY mgDateSent ASC;";
         }
-        
-
         $result = mysql_query($query) or die(mysql_error());
         $num = mysql_num_rows($result);
 
