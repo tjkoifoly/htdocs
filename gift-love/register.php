@@ -14,20 +14,21 @@ $phone = isset($_POST['accPhone']) ? $_POST['accPhone'] : "";
 function check_account($param_name) {
     connect_databse();
     $query = "SELECT * FROM account WHERE accName='$param_name'";
+    //echo $query;
     $result = mysql_query($query) or die(mysql_error());
     $num = mysql_num_rows($result);
-
-    $row = array();
+    
     if ($num < 1) {
-        
+        return NULL;
     } else {
         
+        $row = array();
         while ($row1 = mysql_fetch_assoc($result)) {
             $row[] = $row1;
         }
-        
+        return json_encode($row);
     }
-    return json_encode($row);
+    
     mysql_close();
 }
 
@@ -37,7 +38,7 @@ if (isset($_POST['usage']) && $_POST['usage'] == "sign_up") {
         //echo check_account($username);
         
         if (!check_account($username)) {
-            $query_sign_up = "INSERT INTO account VALUES (NULL, '$displayName', '$username', '$imageAvatar', '$password', '$email', '$birthday', $gender, '$phone' );";
+            $query_sign_up = "INSERT INTO account VALUES (NULL, '$displayName', '$username', '$imageAvatar', '$password', '$email', '$birthday', '$gender', '$phone' );";
             $result_sign_up = mysql_query($query_sign_up) or die(mysql_errno());
             if ($result_sign_up) {
                 echo check_account($username);
@@ -54,7 +55,7 @@ if (isset($_POST['usage']) && $_POST['usage'] == "sign_up") {
     }
 } else if (isset($_POST['usage']) && $_POST['usage'] == "update_info") {
     if (connect_databse()) {
-        $query_update = "UPDATE account SET accDisplayName='$displayName', accEmail='$email', accImageAvata='$imageAvatar', accPassword='$password', accBirthday='$birthday', accGender=$gender, accPhone='$phone' WHERE accName='$username';";
+        $query_update = "UPDATE account SET accDisplayName='$displayName', accEmail='$email', accImageAvata='$imageAvatar', accPassword='$password', accBirthday='$birthday', accGender='$gender', accPhone='$phone' WHERE accName='$username';";
         $result_update = mysql_query($query_update) or die(mysql_errno());
 
         if ($result_update) {

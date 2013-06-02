@@ -55,6 +55,11 @@
                     <td><label for="birthday">Birthday:</label> </td>
                     <td> <input type="text" name="accBirthday" value="1991-10-10"></td>
                 </tr>
+                
+                <tr>
+                    <td><label for="usage">usage:</label> </td>
+                    <td> <input type="text" name="usage" value="sign_up"></td>
+                </tr>
             </tbody>
         </table>
         <input type="submit" value="Submit"/>
