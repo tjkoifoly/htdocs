@@ -1,5 +1,5 @@
-Create DATABASE `gift-love-1`;
-use DATABASE `gift-love-1`;
+Create DATABASE `freev_14078836_giftlove`;
+use DATABASE `freev_14078836_giftlove`;
 
 CREATE TABLE  if not EXISTS  account(
 accID BIGINT NOT NULL AUTO_INCREMENT,
@@ -43,10 +43,10 @@ mbSenderID BIGINT REFERENCES account(accID)
 CREATE TABLE if not EXISTS message(
 msID BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 msMessage VARCHAR(1000),
-msDateSent DATETIME,
-msType TINYINT DEFAULT 0,
 msMarkRead TINYINT,
-msBoxID BIGINT REFERENCES messages_box(mbID)
+msBoxID BIGINT REFERENCES messages_box(mbID),
+msDateSent DATETIME,
+msType TINYINT DEFAULT 0
 );
 
 CREATE TABLE if not EXISTS group_message(
